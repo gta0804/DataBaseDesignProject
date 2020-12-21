@@ -1,0 +1,149 @@
+
+{% extends "base.html" %}
+<head>
+    {% block head %}
+        {{ super() }}
+    {% endblock %}
+</head>
+<body>
+{% block nav %}
+    {% if role =='doctor' %}
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+                <div class="navbar-header">
+        <a class="navbar-brand " href="#">你好，重症区{{ name }}医生</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">所有病人信息</a></li>
+            <li><a href="#">区域护士信息</a></li>
+            <li><a href="#">区域护士长信息</a></li>
+            <li><a href="#">消息</a></li>
+            <li><a href="#">登出</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    备用链接 <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">jmeter</a></li>
+                    <li><a href="#">EJB</a></li>
+                    <li><a href="#">Jasper Report</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">分离的链接</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">另一个分离的链接</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    </div>
+</nav>
+
+    {% elif role=='ward_nurse' %}
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+                <div class="navbar-header">
+        <a class="navbar-brand " href="#">你好，重症区{{ name }}护士</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="#">所有病人信息</a></li>
+            <li><a href="#">登出</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    备用链接 <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">jmeter</a></li>
+                    <li><a href="#">EJB</a></li>
+                    <li><a href="#">Jasper Report</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">分离的链接</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">另一个分离的链接</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    </div>
+</nav>
+    {% elif role=='emergency_nurse' %}
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+                <div class="navbar-header">
+        <a class="navbar-brand " href="#">你好，{{ name }}急诊护士</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">所有病人信息</a></li>
+            <li><a href="#">登记新病人</a></li>
+            <li><a href="#">登出</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    备用链接 <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">jmeter</a></li>
+                    <li><a href="#">EJB</a></li>
+                    <li><a href="#">Jasper Report</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">分离的链接</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">另一个分离的链接</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    </div>
+</nav>
+    {% elif role =='head_nurse' %}
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+                <div class="navbar-header">
+        <a class="navbar-brand " href="#">你好，重症区{{ name }}护士长</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">治疗区域病人信息</a></li>
+            <li><a href="#">治疗区域护士信息</a></li>
+            <li><a href="#">治疗区域病床信息</a></li>
+            <li><a href="#">登出</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    备用链接 <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">jmeter</a></li>
+                    <li><a href="#">EJB</a></li>
+                    <li><a href="#">Jasper Report</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">分离的链接</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">另一个分离的链接</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    </div>
+</nav>
+    {% else %}
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+                <div class="navbar-header">
+        <a class="navbar-brand " href="#">你好，游客请先登录</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">登录</a></li>
+            <li><a href="#">注册</a></li>
+        </ul>
+    </div>
+    </div>
+</nav>
+    {% endif %}
+{% endblock %}
+{% block body %}
+    {{ super() }}
+{% endblock %}
+</body>
+</html>

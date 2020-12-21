@@ -1,0 +1,47 @@
+
+{% extends "nav.html" %}
+<head>
+    {% block head %}
+        {{ super() }}
+    {% endblock %}
+</head>
+<body>
+{% block nav %}
+    {{ super() }}
+{% endblock %}
+{% block body %}
+{{ super() }}
+    <!--只有登录才会显示如下页面 -->
+    {% if role %}
+<div class="row col-xs-12 text-center">
+            <table class="table">
+                <thead>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>住址</th>
+                <th>体温</th>
+                <th>操作</th>
+                </thead>
+                <tbody>
+                {% for patient in patients %}
+                <tr>
+                    <td>{{patient['name']}}</td>
+                    <td>{{patient['gender']}}</td>
+                    <td>{{patient['age']}}</td>
+                    <td>{{patient['address']}}</td>
+                    <td>{{patient['temperature']}}</td>
+                    <td>
+                        <button type="button" class="btn">操作1</button>
+                        <button type="button" class="btn">操作2</button>
+                    </td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+    </div>
+    {% endif %}
+{% endblock %}
+</body>
+</html>
