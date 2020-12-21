@@ -1,0 +1,10 @@
+1、数据库更新
+(base) qinghua@MacBook-Pro-2 flaskr % source activate db-pj
+(db-pj) qinghua@MacBook-Pro-2 flaskr % cd ..
+(db-pj) qinghua@MacBook-Pro-2 DataBaseDesignProject % python3
+Python 3.7.9 (default, Aug 31 2020, 07:22:35)
+[Clang 10.0.0 ] :: Anaconda, Inc. on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from flaskr.app import db
+>>> from flaskr.entry import db,create_app
+>>> db.create_all(app=create_app()
