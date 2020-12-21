@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
-/../../../../../../../:\Users\Lenovo\PycharmProjects\新建文件夹\DataBaseDesignProject\.idea/dataSources/
+/../../../../../../:\Users\Lenovo\PycharmProjects\flaskProject1\.idea/dataSources/
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
