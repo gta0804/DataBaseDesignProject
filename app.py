@@ -1,8 +1,12 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,sessions
 from flask_bootstrap import Bootstrap
-app = Flask(__name__)
-
+from entry import create_app, db
+app = create_app()
 bootstrap = Bootstrap(app)
+
+if __name__ == "__main__":
+    db.create_all()
+    app.run()
 
 
 @app.route('/')
@@ -24,4 +28,16 @@ def show_all():
 def doctor_nav():
     role = 'doctor'
     name = '李四'
-    return render_template("all_patient.html", role=role, name=name)
+    return render_template("all_patient.html",role=role,name=name)
+
+
+@app.route("/show_login")
+def show():
+    return render_template("auth/login.html")
+
+
+@app.route("/logout")
+def logout():
+    sessions["name"] = None
+    sessions["role"] = None
+    return render_template("auth/login.html")

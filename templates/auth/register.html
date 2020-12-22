@@ -1,0 +1,59 @@
+{% extends './nav.html' %}
+
+{% block header %}
+  {{ super() }}
+{% endblock %}
+{% block nav %}
+    {{ super() }}
+{% endblock %}
+{% block body %}
+    <div class="row col-xs-12 text-center">
+    <h1>用户注册</h1>
+  <form method="post" role="form">
+      <div class="form-group">
+            <label for="username">Username</label>
+            <input name="username" id="username" required>
+      </div>
+      <div class="form-group">
+            <label for="phone_number">phone number</label>
+            <input name="phone_number" id="phone_number" required>
+      </div>
+      <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required>
+      </div>
+      <div class="form-group">
+            <label for="first_name">first name</label>
+            <input type="text" name="first_name" id="first_name" required>
+      </div>
+      <div class="form-group">
+            <label for="last_name">last name</label>
+            <input type="text" name="last_name" id="last_name" required>
+      </div>
+      <div class="radio">
+    <label>
+        <input type="radio" name="gender" id="optionsRadios2" value="male">男
+    </label>
+      </div>
+      <div class="radio">
+          <label>
+              <input type="radio" name="gender" id="optionsRadios2" value="female">女
+          </label>
+      </div>
+      <div class="form-group">
+            <label for="birth">birth</label>
+            <input type="text" name="birth" id="birth" required>
+      </div>
+      <div class="form-group">
+            <label for="age">age</label>
+            <input type="text" name="age" id="age" required>
+      </div>
+      <div class="form-group">
+            <label for="salary">salary</label>
+            <input type="text" name="salary" id="salary" required>
+      </div>
+    <input type="submit" value="Register">
+
+  </form>
+    </div>
+{% endblock %}
