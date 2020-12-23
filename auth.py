@@ -13,35 +13,29 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 def register():
     if request.method == 'POST':
         gender = request.form['gender']
-        first_name = request.form['first_name']
-        last_name = request.form['last_name']
+        name = request.form['name']
         password = request.form['password']
-        birth = request.form['birth']
         age = request.form['age']
         phone_number = request.form['phone_number']
         salary = request.form['salary']
 
         error = None
 
-        if not first_name:
-            error = 'first_name is required.'
+        if not name:
+            error = 'name is required.'
         elif not password:
             error = 'Password is required.'
-        elif not last_name:
-            error = 'last_name is required.'
-        elif not birth:
-            error = 'birth is required.'
         elif not age:
             error = 'age is required'
         elif not phone_number:
             error = 'phone_number is required.'
         elif not salary:
             error = 'salary is required.'
-        elif Staff.query.filter(Staff.first_name == first_name & Staff.last_name == last_name).first() is not None:
-            error = 'User {} {} is already registered.'.format(first_name, last_name)
+        elif Staff.query.filter(Staff.name == name).first() is not None:
+            error = 'User {} {} is already registered.'.format(name)
 
         if error is None:
-            u = Staff(gender, first_name, last_name, birth, age, phone_number,
+            u = Staff(gender,name, age, phone_number,
                       salary, password)
             db.session.add(u)
             db.session.commit()
@@ -79,7 +73,7 @@ def login():
 def user2dict(user):
     return {
         'id': user.id,
-        'name': user.first_name+user.last_name,
+        'name': user.name,
     }
 
 

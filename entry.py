@@ -27,7 +27,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI='mysql+pymysql://root:123456xy@127.0.0.1:3306/pj?charset=utf8',
+        SQLALCHEMY_DATABASE_URI='mysql+pymysql://root:password@127.0.0.1:3306/pj?charset=utf8',
         # 密码123456xy 启动mysql：sudo mysql.server start.mysql -u root -p
         SQLALCHEMY_COMMIT_ON_TEARDOWN=True,
         SQLALCHEMY_POOL_SIZE=5,
