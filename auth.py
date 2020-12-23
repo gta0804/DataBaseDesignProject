@@ -16,7 +16,7 @@ def register():
         name = request.form['name']
         password = request.form['password']
         age = request.form['age']
-        phone_number = request.form['phone_number']
+        phone_number = str(request.form['phone_number'])
         salary = request.form['salary']
 
         error = None
@@ -35,7 +35,7 @@ def register():
             error = 'User {} {} is already registered.'.format(name)
 
         if error is None:
-            u = Staff(gender,name, age, phone_number,
+            u = Staff(gender, name, age, phone_number,
                       salary, password)
             db.session.add(u)
             db.session.commit()
@@ -61,7 +61,7 @@ def login():
 
         if error is None:
             session.clear()
-            session['user_id'] = user.id
+            session['user_id'] = user.staff_id
             #return redirect(url_for('calculation_F1.index'))
             return render_template('base.html')
 

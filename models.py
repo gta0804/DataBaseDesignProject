@@ -9,8 +9,7 @@ class Staff(Base):
         # "useexisting": True,
 
         entry.db.UniqueConstraint(
-            'first_name',
-            'last_name',
+            'name',
             name='name'
         ),
         {'useexisting':True}
@@ -33,11 +32,11 @@ class Staff(Base):
         self.name = name
         self.password = password
         self.age = age
-        self.phone_Number = phone_number
+        self.phone_number = phone_number
         self.salary = salary
 
     def __repr__(self):
-        return '<User %r>' % (self.first_name + self.last_name)
+        return '<User %r>' % (self.name)
 
 
 class Patient(Base):
