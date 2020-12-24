@@ -31,13 +31,9 @@ def doctor_nav():
     return render_template("all_patient.html",role=role,name=name)
 
 
-@app.route("/show_login")
-def show():
-    return render_template("auth/login.html")
-
-
-@app.route("/logout")
-def logout():
-    sessions["name"] = None
-    sessions["role"] = None
-    return render_template("auth/login.html")
+@app.route("/emergency_nurse/new_patient")
+def new_patient():
+    role='emergency_nurse'
+    name='李四'
+    area='all'
+    return render_template("emergency_nurse/new_patient.html",role=role,name=name)

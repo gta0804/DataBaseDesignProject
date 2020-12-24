@@ -14,6 +14,7 @@
 <div class="row col-xs-12 text-center">
             <table class="table">
                 <thead>
+                <th>病人id</th>
                 <th>姓名</th>
                 <th>性别</th>
                 <th>住址</th>
@@ -40,13 +41,13 @@
                         </td>
                     <td>
                     {% if role=='doctor' %}
-                        <button type="button" class="btn btn btn-default" id="nucleic_test">进行核酸检测</button>
+                        <button type="button" class="btn btn btn-default" class="nucleic_test">进行核酸检测</button>
                         {% if patient['is_discharged']==True %}
-                        <button type="button" class="btn btn-default" id="discharge">准许出院</button>
+                        <button type="button" class="btn btn-default" class="discharge">准许出院</button>
                         {% end_if %}
                     {% end if %}
                     {% elif role=='nurse' %}
-                    <button type="button" class="btn btn-default" id="nurse_report">填写病人报告单</button>
+                    <button type="button" class="btn btn-default" class="nurse_report">填写病人报告单</button>
                     {% end if %}
                     </td>
                 </tr>

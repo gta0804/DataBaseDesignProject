@@ -10,7 +10,7 @@
     <div class="container-fluid">
                 <div class="navbar-header">
         <a class="navbar-brand " href="#">你好，{{ area }}区 }
-            {{ name }}医生</a>
+            {{ name }}</a>
     </div>
     <div>
         <ul class="nav navbar-nav navbar-right">
@@ -47,7 +47,7 @@
     <div>
         <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="#">所有病人信息</a></li>
-            <li><a href="#">登出</a></li>
+            <li><a href="{{ url_for('auth.logout') }}">登出</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     备用链接 <b class="caret"></b>
@@ -75,8 +75,8 @@
     <div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#">所有病人信息</a></li>
-            <li><a href="#">登记新病人</a></li>
-            <li><a href="#">登出</a></li>
+            <li><a href="{{ url_for('emergency_nurse.new_patient') }}">登记新病人</a></li>
+            <li><a href="{{ url_for('auth.logout') }}">登出</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     备用链接 <b class="caret"></b>
@@ -106,7 +106,7 @@
             <li><a href="#">治疗区域病人信息</a></li>
             <li><a href="#">治疗区域护士信息</a></li>
             <li><a href="#">治疗区域病床信息</a></li>
-            <li><a href="#">登出</a></li>
+            <li><a href="{{ url_for('auth.logout') }}">登出</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     备用链接 <b class="caret"></b>

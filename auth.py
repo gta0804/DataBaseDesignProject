@@ -49,13 +49,13 @@ def register():
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
-        staff_id = request.form['staff_id']
+        name = request.form['name']
         password = request.form['password']
         error = None
-        user = Staff.query.filter(Staff.staff_id == staff_id).first()
+        user = Staff.query.filter(Staff.name == name).first()
 
         if user is None:
-            error = 'Incorrect staff_id.'
+            error = 'Incorrect name.'
         elif user.password != password:
             error = 'Incorrect password.'
 
@@ -63,7 +63,8 @@ def login():
             session.clear()
             session['user_id'] = user.staff_id
             #return redirect(url_for('calculation_F1.index'))
-            return render_template('base.html')
+            print("success")
+            return render_template('nav.html',role='emergency_nurse',name=name)
 
         flash(error)
 
@@ -71,8 +72,10 @@ def login():
 
 
 def user2dict(user):
+    if(user == None):
+        return
     return {
-        'id': user.id,
+        'id': user.staff_id,
         'name': user.name,
     }
 
@@ -80,11 +83,10 @@ def user2dict(user):
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
-
     if user_id is None:
         g.user = None
     else:
-        g.user = user2dict(Staff.query.filter(Staff.id == user_id).first())
+        g.user = user2dict(Staff.query.filter(Staff.staff_id == user_id).first())
 
 
 @bp.route('/logout')
