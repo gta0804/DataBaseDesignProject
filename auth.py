@@ -64,7 +64,7 @@ def login():
             session['user_id'] = user.staff_id
             #return redirect(url_for('calculation_F1.index'))
             print("success")
-            return render_template('nav.html',role='emergency_nurse',name=name)
+            return render_template('nav.html',role='ward_nurse',name=name)
 
         flash(error)
 
@@ -93,7 +93,7 @@ def load_logged_in_user():
 def logout():
     session.clear()
     #return redirect(url_for('calculation_F1.index'))
-    return render_template('base.html')
+    return render_template('auth/login.html')
 
 
 def login_required(view):

@@ -46,8 +46,8 @@
                         <button type="button" class="btn btn-default" class="discharge">准许出院</button>
                         {% end_if %}
                     {% end if %}
-                    {% elif role=='nurse' %}
-                    <button type="button" class="btn btn-default" class="nurse_report">填写病人报告单</button>
+                    {% elif role=='ward_nurse' %}
+                    <button type="button" class="btn btn-default" class="nurse_report" href="{{ url_for('ward_nurse.report',patient_id=patient['patient_id']) }}">填写病人报告单</button>
                     {% end if %}
                     </td>
                 </tr>

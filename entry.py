@@ -4,6 +4,8 @@ db = SQLAlchemy()
 
 from flask import Flask, render_template
 import auth as auth
+import emergency_nurse as emergency_nurse
+import ward_nurse as ward_nurse
 
 
 # import auth
@@ -67,7 +69,8 @@ def create_app(test_config=None):
     #     return render_template('InterpretableEval/index.html')
 
     app.register_blueprint(auth.bp)
-
+    app.register_blueprint(emergency_nurse.bp)
+    app.register_blueprint(ward_nurse.bp)
     # app.register_blueprint(calculation_F1.bp)
 
     return app
