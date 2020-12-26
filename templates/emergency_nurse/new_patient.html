@@ -1,0 +1,56 @@
+{% extends "nav.html"%}
+    {% block head %}
+        {{ super() }}
+    {% endblock %}
+<body>
+{% block nav %}
+    {{ super() }}
+{% endblock %}
+{% block body %}
+{{ super() }}
+    <div class="row col-xs-12 text-center">
+        <h2>添加新病人</h2>
+    <form  method="post" role="form">
+        <div class="form-group">
+            <label for="name">病人姓名</label>
+            <input name="name" id="name" required>
+        </div>
+        <div class="form-group">
+            <label for="gender">病人性别</label>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="gender" id="optionsRadios1" value="male">男
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="gender" id="optionsRadios2" value="female">女
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address">病人住址</label>
+            <input name="address" id="address" required>
+        </div>
+        <div class="form-group">
+            <label for="state_of_illness">病人病情轻重</label>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="state_of_illness" id="soft" value="soft">轻症
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="state_of_illness" id="urgent" value="urgent">重症
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="state_of_illness" id="very_urgent" value="very_urgent">危重症
+                </label>
+            </div>
+            <input type="submit" class="btn btn-default" value="提交">
+        </div>
+    </form>
+    </div>
+{% endblock %}

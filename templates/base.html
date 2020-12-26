@@ -1,13 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+
+{% block head %}
+    <!doctype html>
 <head>
-    {% block head %}
-    <meta charset="UTF-8">
-    <title>医院新冠肺炎管理系统</title>
-    {% endblock %}
+<title>{% block title %}{% endblock %}Calculation F1</title>
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+{% endblock %}
 <body>
+{% block nav %}
+{% endblock %}
 {% block body %}
 {% endblock %}
 </body>
-</html>
+
