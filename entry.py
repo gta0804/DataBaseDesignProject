@@ -15,6 +15,7 @@ sql_select_patient_area = 'SELECT * from patient_area WHERE patient_id=%s'
 sql_insert_new_patient="INSERT INTO patient( \
        name, gender, address, state_of_illness) \
        VALUES (%s, %s, %s, %s )"
+
 # import auth
 # import calculation_F1
 '''

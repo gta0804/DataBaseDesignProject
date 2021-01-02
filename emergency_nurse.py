@@ -1,12 +1,13 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from auth import session
+from auth import session,login_required
 
 bp = Blueprint('emergency_nurse', __name__, url_prefix='/emergency_nurse')
 
 
 @bp.route('/new_patient', methods=('GET', 'POST'))
+@login_required
 def new_patient():
     if request.method == 'GET':
         return render_template("emergency_nurse/new_patient.html",
