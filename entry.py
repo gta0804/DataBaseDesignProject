@@ -7,8 +7,11 @@ import ward_nurse as ward_nurse
 db = pymysql.connect("localhost", "root", "123456xy", "pj")
 sql_select_staff = 'SELECT * from  staff WHERE name=%s'
 sql_select_staff_area = 'SELECT * from  staff_area WHERE staff_id=%s'
-
-
+sql_select_patient = 'SELECT * from  patient WHERE nurse_id=%s'
+sql_select_patient_tempare = 'SELECT * from  temperature_test WHERE patient_id=%s'
+sql_select_patient_nucleic = 'SELECT * from  nucleic_test WHERE patient_id=%s'
+sql_select_patient_symptoms = 'SELECT * from  symptoms WHERE patient_id=%s'
+sql_select_patient_area = 'SELECT * from patient_area WHERE patient_id=%s'
 # import auth
 # import calculation_F1
 '''
@@ -58,12 +61,37 @@ def create_app(test_config=None):
     def index():
         return render_template('templates/base.html')
 
-    from auth import login_required
+    from auth import login_required, session, cursor
 
     @login_required
     @app.route('/all_patient')
     def all_patient():
-        return 0
+        sql = sql_select_patient % session['user_id']
+        cursor.execute(sql)
+        raw_patient_list = cursor.fetchall()
+
+        patient_list = []
+
+        for patient in raw_patient_list:
+            patient_id = patient['patient_id']
+
+            from util import is_patient_discraged, get_patient_area, get_symptoms, get_temperature
+            list = []
+            list.append(patient_id)
+            list.append(patient['gender'])
+            list.append(patient['name'])
+            list.append(patient['address'])
+            list.append(get_temperature(patient_id))
+            list.append(patient['life_status'])
+            list.append(patient['state_of_illness'])
+            list.append(get_symptoms(patient_id))
+            list.append(get_patient_area(patient_id))
+            list.append(is_patient_discraged(patient_id))
+            patient_list.append(list)
+
+        return render_template('all_patient.html', username=session['user_name'],
+                               staff_id=session['user_id'], role=session['role'],
+                               area=session['area'], patient=patient_list)
 
     # return render_template('index.html')
 

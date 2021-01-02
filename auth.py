@@ -1,4 +1,5 @@
 import functools
+from pymysql.cursors import DictCursor
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -6,7 +7,7 @@ from flask import (
 from entry import db, sql_select_staff, sql_select_staff_area
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
-cursor = db.cursor()
+cursor = db.cursor(DictCursor)
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
