@@ -12,6 +12,9 @@ sql_select_patient_tempare = 'SELECT * from  temperature_test WHERE patient_id=%
 sql_select_patient_nucleic = 'SELECT * from  nucleic_test WHERE patient_id=%s'
 sql_select_patient_symptoms = 'SELECT * from  symptoms WHERE patient_id=%s'
 sql_select_patient_area = 'SELECT * from patient_area WHERE patient_id=%s'
+sql_insert_new_patient="INSERT INTO patient( \
+       name, gender, address, state_of_illness) \
+       VALUES (%s, %s, %s, %s )"
 # import auth
 # import calculation_F1
 '''
