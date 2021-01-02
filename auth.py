@@ -3,48 +3,10 @@ import functools
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from models import Staff
-from entry import db
+from entry import db, sql_select_staff, sql_select_staff_area
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
-
-
-@bp.route('/register', methods=('GET', 'POST'))
-def register():
-    if request.method == 'POST':
-        gender = request.form['gender']
-        name = request.form['name']
-        password = request.form['password']
-        age = request.form['age']
-        phone_number = str(request.form['phone_number'])
-        salary = request.form['salary']
-
-        error = None
-
-        if not name:
-            error = 'name is required.'
-        elif not password:
-            error = 'Password is required.'
-        elif not age:
-            error = 'age is required'
-        elif not phone_number:
-            error = 'phone_number is required.'
-        elif not salary:
-            error = 'salary is required.'
-        elif Staff.query.filter(Staff.name == name).first() is not None:
-            error = 'User {} {} is already registered.'.format(name)
-
-        if error is None:
-            u = Staff(gender, name, age, phone_number,
-                      salary, password)
-            db.session.add(u)
-            db.session.commit()
-            return redirect(url_for('auth.login'))
-
-        flash(error)
-
-    return render_template('auth/register.html')
-
+cursor = db.cursor()
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
@@ -52,19 +14,35 @@ def login():
         name = request.form['name']
         password = request.form['password']
         error = None
-        user = Staff.query.filter(Staff.name == name).first()
+        sql = sql_select_staff % name
+        cursor.execute(sql)
+        user = cursor.fetchone()
 
         if user is None:
             error = 'Incorrect name.'
-        elif user.password != password:
+        elif password != user['password']:
             error = 'Incorrect password.'
+
+        sql_area = sql_select_staff_area % user['staff_id']
+        cursor.execute(sql_area)
+        area = cursor.fetchone()
+        area_list = []
+        if user['role'] == 'emergency_nurse':
+            area_list.append('soft')
+            area_list.append('urgent')
+            area_list.append('very_urgent')
+        else:
+            area_list.append(area['area'])
 
         if error is None:
             session.clear()
-            session['user_id'] = user.staff_id
-            #return redirect(url_for('calculation_F1.index'))
+            session['user_id'] = user['staff_id']
+            session['user_name'] = user['name']
+            session['role'] = user['role']
+            session['area'] = area_list
+            # return redirect(url_for('calculation_F1.index'))
             print("success")
-            return render_template('nav.html',role='ward_nurse',name=name)
+            return render_template('nav.html', role=user['role'], area=area_list, name=name)
 
         flash(error)
 
@@ -72,7 +50,7 @@ def login():
 
 
 def user2dict(user):
-    if(user == None):
+    if user == None:
         return
     return {
         'id': user.staff_id,
@@ -86,13 +64,17 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = user2dict(Staff.query.filter(Staff.staff_id == user_id).first())
+        name = session.set('user_name')
+        sql = sql_select_staff % name
+        cursor.execute(sql)
+        user = cursor.fetchone()
+        g.user = user2dict(user)
 
 
 @bp.route('/logout')
 def logout():
     session.clear()
-    #return redirect(url_for('calculation_F1.index'))
+    # return redirect(url_for('calculation_F1.index'))
     return render_template('auth/login.html')
 
 

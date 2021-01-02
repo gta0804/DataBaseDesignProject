@@ -1,11 +1,12 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
-
+import pymysql
 from flask import Flask, render_template
 import auth as auth
 import emergency_nurse as emergency_nurse
 import ward_nurse as ward_nurse
+
+db = pymysql.connect("localhost", "root", "123456xy", "pj")
+sql_select_staff = 'SELECT * from  staff WHERE name=%s'
+sql_select_staff_area = 'SELECT * from  staff_area WHERE staff_id=%s'
 
 
 # import auth
@@ -29,14 +30,9 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI='mysql+pymysql://root:password@127.0.0.1:3306/pj?charset=utf8',
         # 密码123456xy 启动mysql：sudo mysql.server start.mysql -u root -p
-        SQLALCHEMY_COMMIT_ON_TEARDOWN=True,
-        SQLALCHEMY_POOL_SIZE=5,
-        SQLALCHEMY_POOL_TIMEOUT=15,
-        SQLALCHEMY_TRACK_MODIFICATIONS=False
+
     )
-    db.init_app(app)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -62,6 +58,13 @@ def create_app(test_config=None):
     def index():
         return render_template('templates/base.html')
 
+    from auth import login_required
+
+    @login_required
+    @app.route('/all_patient')
+    def all_patient():
+        return 0
+
     # return render_template('index.html')
 
     # @app.route('/InterpretableEval')
@@ -74,5 +77,3 @@ def create_app(test_config=None):
     # app.register_blueprint(calculation_F1.bp)
 
     return app
-
-
