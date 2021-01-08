@@ -9,30 +9,23 @@
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
                 <div class="navbar-header">
-        <a class="navbar-brand " href="#">你好，{{ area }}区 }
-            {{ name }}</a>
+        <a class="navbar-brand " href="#">你好，
+            {% if area=='soft' %}
+                <span>轻症区{{ name }}医生</span>
+             {% elif area =='urgent' %}
+                <span>重症区{{ name }}医生</span>
+             {% else %}
+           <span>危重症区{{ name }}医生</span>
+              {% endif %}
+        </a>
     </div>
     <div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">所有病人信息</a></li>
-            <li><a href="#">区域护士信息</a></li>
-            <li><a href="#">区域护士长信息</a></li>
+            <li><a href="{{ url_for('all_patient') }}">治疗区域病人信息</a></li>
+            <li><a href="{{ url_for('doctor.show_ward_nurse',area_name=area) }}">区域护士信息</a></li>
+            <li><a href="{{ url_for('doctor.show_head_nurse',area_name=area) }}">区域护士长信息</a></li>
             <li><a href="#">消息</a></li>
-            <li><a href="#">登出</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    备用链接 <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">jmeter</a></li>
-                    <li><a href="#">EJB</a></li>
-                    <li><a href="#">Jasper Report</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">分离的链接</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">另一个分离的链接</a></li>
-                </ul>
-            </li>
+            <li><a href="{{ url_for('auth.logout') }}">登出</a></li>
         </ul>
     </div>
     </div>
@@ -42,26 +35,21 @@
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
                 <div class="navbar-header">
-        <a class="navbar-brand " href="#">你好,{{ area }}区{{ name }}护士</a>
+        <a class="navbar-brand " href="#">你好,
+            {% if area=='soft' %}
+                <span>轻症区{{ name }}病房护士</span>
+             {% elif area =='urgent' %}
+                <span>重症区{{ name }}病房护士</span>
+             {% else %}
+           <span>危重症区{{ name }}病房护士</span>
+              {% endif %}
+        </a>
     </div>
     <div>
         <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="#">所有病人信息</a></li>
+            <li><a href="{{ url_for('all_patient') }}">负责病人信息</a></li>
+            <li><a href="{{ url_for('ward_nurse.show_nucleic_tests_to_report') }}">查看待登记的核酸检测报告</a></li>
             <li><a href="{{ url_for('auth.logout') }}">登出</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    备用链接 <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">jmeter</a></li>
-                    <li><a href="#">EJB</a></li>
-                    <li><a href="#">Jasper Report</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">分离的链接</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">另一个分离的链接</a></li>
-                </ul>
-            </li>
         </ul>
     </div>
     </div>
@@ -74,23 +62,9 @@
     </div>
     <div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">所有病人信息</a></li>
+            <li><a href="{{ url_for('all_patient') }}">所有病人信息</a></li>
             <li><a href="{{ url_for('emergency_nurse.new_patient') }}">登记新病人</a></li>
             <li><a href="{{ url_for('auth.logout') }}">登出</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    备用链接 <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">jmeter</a></li>
-                    <li><a href="#">EJB</a></li>
-                    <li><a href="#">Jasper Report</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">分离的链接</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">另一个分离的链接</a></li>
-                </ul>
-            </li>
         </ul>
     </div>
     </div>
@@ -99,28 +73,21 @@
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
                 <div class="navbar-header">
-        <a class="navbar-brand " href="#">你好，重症区{{ name }}护士长</a>
+        <a class="navbar-brand " href="#">你好，
+            {% if area=='soft' %}
+                <span>轻症区{{ name }}护士长</span>
+             {% elif area =='urgent' %}
+                <span>重症区{{ name }}护士长</span>
+             {% else %}
+           <span>危重症区{{ name }}护士长</span>
+              {% endif %}</a>
     </div>
     <div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">治疗区域病人信息</a></li>
-            <li><a href="#">治疗区域护士信息</a></li>
-            <li><a href="#">治疗区域病床信息</a></li>
+            <li><a href="{{ url_for('all_patient') }}">治疗区域病人信息</a></li>
+            <li><a href="{{ url_for('head_nurse.nurse') }}">治疗区域护士信息</a></li>
+            <li><a href="{{ url_for('head_nurse.bed') }}">治疗区域病床信息</a></li>
             <li><a href="{{ url_for('auth.logout') }}">登出</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    备用链接 <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">jmeter</a></li>
-                    <li><a href="#">EJB</a></li>
-                    <li><a href="#">Jasper Report</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">分离的链接</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">另一个分离的链接</a></li>
-                </ul>
-            </li>
         </ul>
     </div>
     </div>
@@ -134,11 +101,13 @@
     <div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="{{ url_for('auth.login')}}">登录</a></li>
-            <li><a href="{{ url_for('auth.register')}}">注册</a></li>
         </ul>
     </div>
     </div>
 </nav>
+        {% if message %}
+            <h1>{{ message }}</h1>
+        {% endif %}
     {% endif %}
 {% endblock %}
 {% block body %}

@@ -1,0 +1,42 @@
+{% extends "nav.html"%}
+    {% block head %}
+        {{ super() }}
+    {% endblock %}
+<body>
+{% block nav %}
+    {{ super() }}
+{% endblock %}
+{% block body %}
+{{ super() }}
+    <div class="row col-xs-12 text-center" >
+    <h1>修改病人病情评级</h1>
+    <form role="form" method="post" action="/doctor/commit_modify">
+        <div class="form-group">
+            <label for="patient_id">病人id</label>
+            <input  name="patient_id" type="text" readonly  value={{ patient_id }} >
+        </div>
+        <div class="form-group">
+            <label for="area">病人病情评级</label>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="area" id="soft" value="soft">轻症
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="area" id="urgent" value="urgent">重症
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="area" id="very_urgent" value="very_urgent">危重症
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-default" value="提交">
+        </div>
+    </form>
+     </div>
+    </body>
+{% endblock %}

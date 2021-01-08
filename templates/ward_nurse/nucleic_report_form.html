@@ -1,0 +1,39 @@
+{% extends "nav.html"%}
+    {% block head %}
+        {{ super() }}
+    {% endblock %}
+<body>
+{% block nav %}
+    {{ super() }}
+{% endblock %}
+{% block body %}
+{{ super() }}
+    <div class="row col-xs-12 text-center" >
+    <h1>为该病人登记新的核酸检测单</h1>
+    <form role="form" method="post" action="/ward_nurse/commit_nucleic_test">
+        <div class="form-group">
+            <label for="patient_id">病人id</label>
+            <input  name="patient_id" type="text" readonly  value={{ patient_id }} >
+        </div>
+        <div class="form-group">
+            <label for="test_date">报告日期</label>
+            <input  name="test_date" type="text" readonly value={{ test_date }}></div>
+        <div class="form-group">
+                        <label for="test_result">核酸检测结果</label>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="test_result"  value="positive">阳性
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="test_result"  value="negative">阴性
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-default" value="提交">
+        </div>
+    </form>
+    </div>
+{% endblock %}

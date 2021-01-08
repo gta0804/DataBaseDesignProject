@@ -1,0 +1,90 @@
+{% extends "nav.html"%}
+    {% block head %}
+        {{ super() }}
+    {% endblock %}
+<body>
+{% block nav %}
+    {{ super() }}
+{% endblock %}
+{% block body %}
+{{ super() }}
+    <!--只有登录才会显示如下页面 -->
+    {% if role %}
+<div class="row col-xs-12 text-center">
+    <h2>区域内所有护士</h2>
+    <input class="form-control mb-1" id="myInput" type="text" placeholder="搜索">
+    <table class="table">
+        <thead>
+        <th>护士id</th>
+        <th>护士姓名</th>
+        <th>护士性别</th>
+        <th>护士年龄</th>
+        <th>护士所属区域</th>
+        <th>护士照顾的病人id</th>
+        <th>操作</th>
+        </thead>
+        <tbody id="myTable">
+        {% for nurse in nurses %}
+            <tr>
+            <td>{{ nurse[0] }}</td>
+            <td>{{ nurse[1] }}</td>
+            <td>{{ nurse[2] }}</td>
+            <td>{{ nurse[3] }}</td>
+            <td>{{ nurse[4] }}</td>
+            <td>{% for id in nurse[5] %}
+                {{ id['patient_id'] }}&nbsp;
+                {% endfor %}
+                </td>
+             <td>
+                {% if nurse[6]  %}
+                    <a class ='btn btn-default' href="{{ url_for('head_nurse.delete_nurse',staff_id = nurse[0]) }}">删除该护士</a>
+                {% endif %}
+            </td>
+            </tr>
+
+
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+        <div class="row col-xs-12 text-center">
+        <h2>可以添加至该区域的护士</h2>
+        <table class="table">
+        <thead>
+        <th>护士id</th>
+        <th>护士姓名</th>
+        <th>护士性别</th>
+        <th>护士年龄</th>
+        <th>操作</th>
+        </thead>
+        <tbody>
+        {% for nurse in free_nurses %}
+            <tr>
+            <td>{{ nurse[0] }}</td>
+            <td>{{ nurse[1] }}</td>
+            <td>{{ nurse[2] }}</td>
+            <td>{{ nurse[3] }}</td>
+             <td>
+                 <a class ='btn btn-default' href="{{ url_for('head_nurse.add_nurse',staff_id = nurse[0]) }}">添加该护士至区域</a>
+            </td>
+            </tr>
+
+
+        {% endfor %}
+        </tbody>
+    </table>
+        </div>
+{% endif %}
+    <script>
+            $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                let value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+</script>
+{% endblock %}
+</body>
+</html>

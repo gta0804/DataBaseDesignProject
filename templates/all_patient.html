@@ -10,8 +10,9 @@
 {% block body %}
 {{ super() }}
     <!--只有登录才会显示如下页面 -->
-    {% if role=='doctor' %}
+    {% if role %}
 <div class="row col-xs-12 text-center">
+<input class="form-control mb-1" id="myInput" type="text" placeholder="搜索">
             <table class="table">
                 <thead>
                 <th>病人id</th>
@@ -22,33 +23,34 @@
                 <th>生命状况</th>
                 <th>病情状况</th>
                 <th>症状</th>
+                <th>住院区域</th>
                 <th>是否可以出院</th>
                 <th>操作</th>
                 </thead>
-                <tbody>
+                <tbody id="myTable">
                 {% for patient in patients %}
                 <tr>
-                    <td>{{patient['name']}}</td>
-                    <td>{{patient['gender']}}</td>
-                    <td>{{patient['age']}}</td>
-                    <td>{{patient['address']}}</td>
-                    <td>{{patient['temperature']}}</td>
-                    <td>{{ patient['life_status'] }}</td>
-                    <td>{{ patient['state_of_illness'] }}</td>
-                    <td>{% for symptom in patient['symptoms'] %}
-                        {{ symptom }}&nbsp;
-                        {% end for %}
-                        </td>
+                    <td>{{patient[0]}}</td>
+                    <td>{{patient[1]}}</td>
+                    <td>{{patient[2]}}</td>
+                    <td>{{patient[3]}}</td>
+                    <td>{{patient[4]['body_temperature']}}</td>
+                    <td>{{ patient[5] }}</td>
+                    <td>{{ patient[6] }}</td>
+                    <td>{{ patient[7] }}</td>
+                    <td>{{ patient[8] }}</td>
+                    <td>{{ patient[9] }}</td>
                     <td>
                     {% if role=='doctor' %}
-                        <button type="button" class="btn btn btn-default" class="nucleic_test">进行核酸检测</button>
-                        {% if patient['is_discharged']==True %}
-                        <button type="button" class="btn btn-default" class="discharge">准许出院</button>
-                        {% end_if %}
-                    {% end if %}
+                        <a type="button" href="{{ url_for('doctor.modify_state_of_illness',patient_id=patient[0]) }}" class="btn btn btn-default" >改变病情评级</a>
+                        <a  class="btn btn-default" href="{{ url_for('doctor.new_nucleic_test',patient_id=patient[0]) }}">开具核酸检测报告单</a>
+                        {% if patient[9]== '是'%}
+                        <a type="button" href="{{ url_for('doctor.discharge',patient_id=patient[0]) }}" class="btn btn-default" >准许出院</a>
+                        {% endif %}
+                        <a class="btn btn-default" href="{{ url_for('doctor.declare_death',patient_id=patient[0]) }}">宣告死亡</a>
                     {% elif role=='ward_nurse' %}
-                    <button type="button" class="btn btn-default" class="nurse_report" href="{{ url_for('ward_nurse.report',patient_id=patient['patient_id']) }}">填写病人报告单</button>
-                    {% end if %}
+                    <a type="button" class="btn btn-default"  href="{{ url_for('ward_nurse.report',patient_id=patient[0]) }}">填写病人报告单</a>
+                    {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
@@ -57,6 +59,16 @@
             </table>
     </div>
     {% endif %}
+        <script>
+            $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                let value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+</script>
 {% endblock %}
 </body>
 </html>

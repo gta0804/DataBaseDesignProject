@@ -1,0 +1,46 @@
+{% extends "./nav.html"%}
+    {% block head %}
+        {{ super() }}
+    {% endblock %}
+<body>
+{% block nav %}
+    {{ super() }}
+{% endblock %}
+{% block body %}
+{{ super() }}
+{% if role %}
+    <div class="row col-xs-12 text-center">
+        <input class="form-control mb-1" id="myInput" type="text" placeholder="搜索">
+        <table class="table">
+            <thead>
+            <th>病房护士id</th>
+            <th>病房护士姓名</th>
+            <th>病房护士性别</th>
+            <th>病房护士年龄</th>
+            </thead>
+            <tbody id="myTable">
+            {% for head_nurse in head_nurses %}
+                <tr>
+                <td>{{ head_nurse['staff_id'] }}</td>
+                <td>{{ head_nurse['name'] }}</td>
+                <td>{{ head_nurse['gender'] }}</td>
+                <td>{{ head_nurse['age'] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+    <script>
+            $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                let value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+</script>
+{% endblock %}
+</body>
+</html>
